@@ -96,7 +96,7 @@ class MarcaController extends Controller
                 'erro'=> 
                 'o recurso que vc quer atualizar não existe no banco de dados'], 404);
         }
-
+        $request->validate($marca->rules(), $marca->rules());
         $marca->update($request->all());
         return response()->json($marca, 200);
     }
