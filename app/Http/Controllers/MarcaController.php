@@ -20,7 +20,7 @@ class MarcaController extends Controller
     {
         // $marcas = Marca::all();
         $marcas = $this->marca->all();
-        return $marcas;
+        return response()->json($marcas, 200);
     }
 
     /**
@@ -43,7 +43,7 @@ class MarcaController extends Controller
     {
         // $marca = Marca::create($request->all());
         $marca = $this->marca->create($request->all());
-        return $marca;
+        return response()->json($marca, 201);
     }
 
     /**
@@ -56,9 +56,9 @@ class MarcaController extends Controller
     {
         $marca = $this->marca->find($id);
         if($marca === null){
-            return ['erro'=>'nada encontrado no banco de dados'];
+            return response()->json(['erro'=>'nada encontrado no banco de dados'], 404);
         }
-        return $marca;
+        return response()->json($marca, 200);
     }
 
     /**
@@ -90,13 +90,13 @@ class MarcaController extends Controller
         $marca = $this->marca->find($id);
 
         if($marca === null){
-            return [
+            return response()->json([
                 'erro'=> 
-                'o recurso que vc quer atualizar não existe no banco de dados'];
+                'o recurso que vc quer atualizar não existe no banco de dados'], 404);
         }
 
         $marca->update($request->all());
-        return $marca;
+        return response()->json($marca, 200);
     }
 
     /**
@@ -110,11 +110,11 @@ class MarcaController extends Controller
         // $marca->delete();
         $marca = $this->marca->find($id);
         if($marca === null){
-            return [
+            return response()->json([
                 'erro'=> 
-                'a exclusão não pode ser feita pois o recurso não existe'];
+                'a exclusão não pode ser feita pois o recurso não existe'], 404);
         }
         $marca->delete();
-        return ['msg'=>'a marca foi deletada com sucesso!'];
+        return response()->json(['msg'=>'a marca foi deletada com sucesso!'], 200);
     }
 }
