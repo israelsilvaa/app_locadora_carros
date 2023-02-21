@@ -21,8 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Route::resource('cliente', 'App\Http\Controllers\ClienteController@index');
-Route::apiResource('cliente', 'App\Http\Controllers\ClienteController@index');
-Route::apiResource('carro', 'App\Http\Controllers\CarroController@index');
-Route::apiResource('locacao', 'App\Http\Controllers\LocacaoController@index');
-Route::apiResource('marca', 'App\Http\Controllers\MarcaController@index');
-Route::apiResource('modelo', 'App\Http\Controllers\ModeloController@index');
+Route::apiResource('cliente', 'App\Http\Controllers\ClienteController');
+Route::apiResource('carro', 'App\Http\Controllers\CarroController');
+Route::apiResource('locacao', 'App\Http\Controllers\LocacaoController');
+Route::apiResource('marca', 'App\Http\Controllers\MarcaController');
+Route::apiResource('modelo', 'App\Http\Controllers\ModeloController');
