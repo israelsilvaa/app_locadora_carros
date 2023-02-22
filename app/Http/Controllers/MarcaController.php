@@ -20,7 +20,7 @@ class MarcaController extends Controller
     public function index()
     {
         // $marcas = Marca::all();
-        $marcas = $this->marca->all();
+        $marcas = $this->marca->with('modelos')->get();
         return response()->json($marcas, 200);
     }
 
@@ -70,7 +70,7 @@ class MarcaController extends Controller
     public function show($id)
     {
         // php artisan storage:link
-        $marca = $this->marca->find($id);
+        $marca = $this->marca->with('modelos')->find($id);
         if($marca === null){
             return response()->json(['erro'=>'nada encontrado no banco de dados'], 404);
         }

@@ -19,7 +19,9 @@ class ModeloController extends Controller
      */
     public function index()
     {
-          return response()->json($this->modelo->all(), 200);
+        return response()->json($this->modelo->with('marca')->get(), 200);
+        // ALL() -> PBJ DE CONSULTA + GET() == COLLECTION
+        // get() -> modificar a consulta -> collection 
     }
 
     /**
@@ -71,7 +73,7 @@ class ModeloController extends Controller
     public function show($id)
     {
          // php artisan storage:link
-         $modelo = $this->modelo->find($id);
+         $modelo = $this->modelo->with('marca')->find($id);
          if($modelo === null){
              return response()->json(['erro'=>'nada encontrado no banco de dados'], 404);
          }
