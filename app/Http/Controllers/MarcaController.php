@@ -158,7 +158,6 @@ class MarcaController extends Controller
                 'a exclusão não pode ser feita pois o recurso não existe'], 404);
         }
 
-
         // remove o arquivo antigo
         Storage::disk('public')->delete($marca->imagem);
         
