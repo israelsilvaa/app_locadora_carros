@@ -68,6 +68,7 @@ class MarcaController extends Controller
      */
     public function show($id)
     {
+        // php artisan storage:link
         $marca = $this->marca->find($id);
         if($marca === null){
             return response()->json(['erro'=>'nada encontrado no banco de dados'], 404);
