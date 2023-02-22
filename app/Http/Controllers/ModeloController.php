@@ -102,35 +102,41 @@ class ModeloController extends Controller
     {
         $modelo = $this->modelo->find($id);
 
-        if($modelo === null){
-            return response()->json([
-                'erro'=> 
-                'o recurso que vc quer atualizar não existe no banco de dados'], 404);
+        if($modelo === null) {
+            return response()->json(['erro' => 'Impossível realizar a atualização. O recurso solicitado não existe'], 404);
         }
-        if($request->method() === 'PATCH'){
+
+        if($request->method() === 'PATCH') {
+
             $regrasDinamicas = array();
-         
-            // percorrendo todas as regras definidas no Model.
-            foreach($modelo->rules() as $input => $regra){
-        
-                // coletar apenas as regras aplicaveis aos parametros parciais da requisição PATCH
-                if(array_key_exists($input, $request->all())){
+
+            //percorrendo todas as regras definidas no Model
+            foreach($modelo->rules() as $input => $regra) {
+                
+                //coletar apenas as regras aplicáveis aos parâmetros parciais da requisição PATCH
+                if(array_key_exists($input, $request->all())) {
                     $regrasDinamicas[$input] = $regra;
                 }
             }
+            
             $request->validate($regrasDinamicas);
-        }else{
+
+        } else {
             $request->validate($modelo->rules());
         }
-
-        // remove o arquivo antigo caso tenha sido atualizado
-        if($request->file('imagem')){
+        
+        //remove o arquivo antigo caso um novo arquivo tenha sido enviado no request
+        if($request->file('imagem')) {
             Storage::disk('public')->delete($modelo->imagem);
         }
         
         $imagem = $request->file('imagem');
-        $imagem_urn = $imagem->store('imagens', 'public');
-        
+        $imagem_urn = $imagem->store('imagens/modelos', 'public');
+
+        $modelo->fill($request->all());
+        $modelo->imagem = $imagem_urn;
+        $modelo->save();
+        /*
         $modelo->update([
             'marca_id' => $request->marca_id,
             'nome' => $request->nome,
@@ -140,7 +146,7 @@ class ModeloController extends Controller
             'air_bag' => $request->air_bag,
             'abs' => $request->abs
         ]);
-        
+        */
         return response()->json($modelo, 200);
     }
 
