@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Route::resource('cliente', 'App\Http\Controllers\ClienteController@index');
-Route::apiResource('cliente', 'App\Http\Controllers\ClienteController');
+Route::apiResource('cliente', 'App\Http\Controllers\ClienteController')->middleware('jwt.auth');
 Route::apiResource('carro', 'App\Http\Controllers\CarroController');
 Route::apiResource('locacao', 'App\Http\Controllers\LocacaoController');
 Route::apiResource('marca', 'App\Http\Controllers\MarcaController');
