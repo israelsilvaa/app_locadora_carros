@@ -4,10 +4,9 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-header">Login</div>
-
           <div class="card-body">
-            <form method="POST" action="">
-                <input type="hidden" name="_token" :value=" token_csrf ">
+            <form method="POST" action="" @submit.prevent="login($event)">
+              <input type="hidden" name="_token" :value="token_csrf" />
               <div class="row mb-3">
                 <label for="email" class="col-md-4 col-form-label text-md-end"
                   >Email</label
@@ -23,6 +22,7 @@
                     required
                     autocomplete="email"
                     autofocus
+                    v-model="email"
                   />
                 </div>
               </div>
@@ -42,6 +42,7 @@
                     name="password"
                     required
                     autocomplete="current-password"
+                    v-model="password"
                   />
                 </div>
               </div>
@@ -79,7 +80,34 @@
 </template>
 
 <script>
-    export default {
-        props: ["token_csrf"], // data(semelhante)
+export default {
+  props: ["token_csrf"], // data(semelhante)
+  data() {
+    return {
+      email: '',
+      password: ''
     };
+  },
+  methods: {
+    login(e) {
+      let url = "http://localhost:8000/api/login";
+      let configuracao = {
+        method: "post",
+        body: new URLSearchParams({
+          email: this.email,
+          password: this.password,
+        }),
+      };
+      fetch(url, configuracao)
+        .then(response => response.json())
+        .then(data => {
+          if(data.token){
+            document.cookie = 'token =' + data.token + ';SameSite=Lax'
+          }
+          // dar sequencia ao envio do form por sessão
+          e.target.submit()
+        })
+    },
+  },
+};
 </script>
