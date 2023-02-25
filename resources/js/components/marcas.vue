@@ -39,15 +39,37 @@
                     </template>
 
                     <template v-slot:rodape>
-                        <button type="button" class="btn btn-primary btn-sm float-right" data-bs-toggle="modal" data-bs-target="#modalMarca">Adicionar</button>
+                        <button type="button" class="btn btn-primary btn-sm float-right" data-bs-toggle="modal"
+                            data-bs-target="#modalMarca">Adicionar</button>
                     </template>
                 </card-component>
                 <!-- fim do card de listagem de marcas -->
             </div>
         </div>
 
-        <modal-component id="modalMarca" titulo="Adicionar marca"></modal-component>
-        
+        <modal-component id="modalMarca" titulo="Adicionar marca">
+            <template v-slot:conteudo>
+                <div class="form-group">
+                    <input-container-component titulo="Nome da marca" id="novoNome" id-help="novoNomeHelp"
+                        texto-ajuda="Informe o nome da marca">
+                        <input type="text" class="form-control" id="novoNome" aria-describedby="novoNomeHelp"
+                            placeholder="Nome da marca">
+                    </input-container-component>
+                </div>
+                <div class="form-group">
+                    <input-container-component titulo="Imagem" id="novoImagem" id-help="novoImagemHelp"
+                        texto-ajuda="Selelcione uma imagem no formato PNG">
+                        <input type="file" class="form-control" id="novoImagem" aria-describedby="novoImagemHelp"
+                            placeholder="Selelcione uma imagem">
+                    </input-container-component>
+                </div>
+            </template>
+            <template v-slot:rodape>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">fechar</button>
+                <button type="button" class="btn btn-primary">Salvar mudanças</button>
+            </template>
+        </modal-component>
+
 
     </div>
 </template>

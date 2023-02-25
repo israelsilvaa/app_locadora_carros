@@ -5576,7 +5576,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['id', 'titulo']
@@ -5638,6 +5637,28 @@ __webpack_require__.r(__webpack_exports__);
   \*************************************************************************************************************************************************************************************************************/
 /***/ (() => {
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -29415,39 +29436,15 @@ var render = function () {
             }),
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "modal-body" }, [
-            _vm._v("\n                conteudo do modal...\n            "),
-          ]),
+          _c("div", { staticClass: "modal-body" }, [_vm._t("conteudo")], 2),
           _vm._v(" "),
-          _vm._m(0),
+          _c("div", { staticClass: "modal-footer" }, [_vm._t("rodape")], 2),
         ]),
       ]),
     ]
   )
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { type: "button", "data-bs-dismiss": "modal" },
-        },
-        [_vm._v("fechar")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "button" } },
-        [_vm._v("Salvar mudanças")]
-      ),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -29685,6 +29682,97 @@ var render = function () {
       _vm._v(" "),
       _c("modal-component", {
         attrs: { id: "modalMarca", titulo: "Adicionar marca" },
+        scopedSlots: _vm._u([
+          {
+            key: "conteudo",
+            fn: function () {
+              return [
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c(
+                      "input-container-component",
+                      {
+                        attrs: {
+                          titulo: "Nome da marca",
+                          id: "novoNome",
+                          "id-help": "novoNomeHelp",
+                          "texto-ajuda": "Informe o nome da marca",
+                        },
+                      },
+                      [
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "novoNome",
+                            "aria-describedby": "novoNomeHelp",
+                            placeholder: "Nome da marca",
+                          },
+                        }),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c(
+                      "input-container-component",
+                      {
+                        attrs: {
+                          titulo: "Imagem",
+                          id: "novoImagem",
+                          "id-help": "novoImagemHelp",
+                          "texto-ajuda": "Selelcione uma imagem no formato PNG",
+                        },
+                      },
+                      [
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "file",
+                            id: "novoImagem",
+                            "aria-describedby": "novoImagemHelp",
+                            placeholder: "Selelcione uma imagem",
+                          },
+                        }),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "rodape",
+            fn: function () {
+              return [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-bs-dismiss": "modal" },
+                  },
+                  [_vm._v("fechar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", attrs: { type: "button" } },
+                  [_vm._v("Salvar mudanças")]
+                ),
+              ]
+            },
+            proxy: true,
+          },
+        ]),
       }),
     ],
     1
