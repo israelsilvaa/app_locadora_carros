@@ -7,12 +7,9 @@
 
           <div class="card-body">
             <form method="POST" action="">
-              
-
+                <input type="hidden" name="_token" :value=" token_csrf ">
               <div class="row mb-3">
-                <label
-                  for="email"
-                  class="col-md-4 col-form-label text-md-end"
+                <label for="email" class="col-md-4 col-form-label text-md-end"
                   >Email</label
                 >
 
@@ -27,7 +24,6 @@
                     autocomplete="email"
                     autofocus
                   />
-
                 </div>
               </div>
 
@@ -47,15 +43,18 @@
                     required
                     autocomplete="current-password"
                   />
-
                 </div>
               </div>
 
               <div class="row mb-3">
                 <div class="col-md-6 offset-md-4">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox"
-                    name="remember" id="remember">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      name="remember"
+                      id="remember"
+                    />
 
                     <label class="form-check-label" for="remember">
                       lembrar login
@@ -66,16 +65,9 @@
 
               <div class="row mb-0">
                 <div class="col-md-8 offset-md-4">
-                  <button type="submit" class="btn btn-primary">
-                    Login
-                  </button>
+                  <button type="submit" class="btn btn-primary">Login</button>
 
-                  <a
-                    class="btn btn-link"
-                    href=""
-                  >
-                    Esqueci a senha.
-                  </a>
+                  <a class="btn btn-link" href=""> Esqueci a senha. </a>
                 </div>
               </div>
             </form>
@@ -87,4 +79,7 @@
 </template>
 
 <script>
+    export default {
+        props: ["token_csrf"], // data(semelhante)
+    };
 </script>
