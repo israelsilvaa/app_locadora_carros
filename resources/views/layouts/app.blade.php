@@ -33,12 +33,29 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                        @Auth
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Clientes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Locações</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a  class="nav-link dropdown-toggle" href="#"data-bs-toggle="dropdown">Veiculos</a>
+                                <div class="dropdown-menu">
+                                    <a href="#" class="dropdown-item">carro</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="#" class="dropdown-item">Marcas</a>
+                                    <a href="#" class="dropdown-item">Modelos</a>
+                                </div>
+                            </li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
+                       
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
