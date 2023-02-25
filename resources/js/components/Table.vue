@@ -3,9 +3,9 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Primeiro</th>
-                <th scope="col">ultimo</th>
-                <th scope="col">N sei oq é isso</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
             </tr>
         </thead>
         <tbody>
@@ -29,10 +29,7 @@
         </tbody>
     </table>
 </template>
-  
-<script>
-export default {
 
-}
+<script>
+    export default {}
 </script>
-  

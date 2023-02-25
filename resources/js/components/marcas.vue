@@ -2,49 +2,43 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card mb-3">
-                    <div class="card-header">Busca de marcas</div>
-                    <!-- Inicio card de busca -->
-                    <div class="card-body">
+                
+                
+                <!-- início do card de busca -->
+                <card-component titulo="Busca de marcas">
+                    <template v-slot:conteudo>
                         <div class="form-row">
                             <div class="col mb-3">
-                                <input-container-component titulo="ID" id="inputId" id-help="idHelp"
-                                    texto-ajuda="Opcional. Informe o ID da marca">
-                                    <input type="number" class="form-control" id="inputId" aria-describedby="idHelp"
-                                        placeholder="ID">
-                                </input-container-component>
+                                <input-container-component titulo="ID" id="inputId" id-help="idHelp" texto-ajuda="Opcional. Informe o ID da marca">
+                                    <input type="number" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="ID">
+                                </input-container-component>                   
                             </div>
                             <div class="col mb-3">
-                                <input-container-component titulo="Nome da marca" id="inputNome" id-help="nomeHelp"
-                                    texto-ajuda="Opcional. Informe o nome da marca">
-                                    <input type="text" class="form-control" id="inputNome" aria-describedby="nomeHelp"
-                                        placeholder="Nome da marca">
+                                <input-container-component titulo="Nome da marca" id="inputNome" id-help="nomeHelp" texto-ajuda="Opcional. Informe o nome da marca">
+                                    <input type="text" class="form-control" id="inputNome" aria-describedby="nomeHelp" placeholder="Nome da marca">
                                 </input-container-component>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer">
+                    </template>
+                    
+                    <template v-slot:rodape>
                         <button type="submit" class="btn btn-primary btn-sm float-right">Pesquisar</button>
-                    </div>
-                </div>
-                <!-- FIM card de busca -->
+                    </template>
+                </card-component>
+                <!-- fim do card de busca -->
 
-                <!-- Inicio card de listagem -->
-                <div class="card">
-                    <div class="card-header">Relação de marcas</div>
-                    <!-- Inicio card de busca -->
-                    <div class="card-body">
-                        <table-component>
 
-                        </table-component>
-                        
-                    </div>
-                    <div class="card-footer">
+                <!-- início do card de listagem de marcas -->
+                <card-component titulo="Relação de marcas">
+                    <template v-slot:conteudo>
+                        <table-component></table-component>
+                    </template>
+
+                    <template v-slot:rodape>
                         <button type="button" class="btn btn-primary btn-sm float-right">Adicionar</button>
-                    </div>
-                </div>
-
-                <!-- Inicio card de listagem -->
+                    </template>
+                </card-component>
+                <!-- fim do card de listagem de marcas -->
             </div>
         </div>
     </div>
