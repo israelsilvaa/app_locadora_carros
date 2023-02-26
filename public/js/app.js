@@ -5320,9 +5320,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['tipo'],
+  props: ['tipo', 'titulo', 'detalhes'],
   computed: {
     estilo: function estilo() {
       return 'alert alert-' + this.tipo;
@@ -5774,7 +5780,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       urlBase: 'http://localhost:8000/api/v1/marca',
       nomeMarca: '',
-      arquivoImagem: []
+      arquivoImagem: [],
+      transacaoStatus: '',
+      transacaoDetalhes: []
     };
   },
   methods: {
@@ -5782,6 +5790,7 @@ __webpack_require__.r(__webpack_exports__);
       this.arquivoImagem = e.target.files;
     },
     salvar: function salvar() {
+      var _this = this;
       console.log(this.nomeMarca, this.arquivoImagem[0]);
       var formData = new FormData();
       formData.append('nome', this.nomeMarca);
@@ -5794,9 +5803,14 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       axios.post(this.urlBase, formData, config).then(function (response) {
+        _this.transacaoStatus = 'adicionado';
+        _this.transacaoDetalhes = response;
+        console.log('RESPONSEEEEE');
         console.log(response);
       })["catch"](function (errors) {
-        console.log(errors);
+        _this.transacaoStatus = 'erro';
+        _this.transacaoDetalhes = errors.response;
+        // errors.response.data.message
       });
     }
   }
@@ -29212,7 +29226,28 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { class: _vm.estilo, attrs: { role: "alert" } }, [
-    _vm._v("\n    A mensagem de feedback\n    " + _vm._s(_vm.tipo) + "\n"),
+    _vm._v("\n    " + _vm._s(_vm.titulo) + "\n    "),
+    _c("hr"),
+    _vm._v(" "),
+    _vm.detalhes.data.message
+      ? _c("span", [_vm._v(_vm._s(_vm.detalhes.data.message))])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.detalhes.data.id
+      ? _c("span", [_vm._v(_vm._s("ID do registro: " + _vm.detalhes.data.id))])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _vm.detalhes.data.errors
+      ? _c(
+          "ul",
+          _vm._l(_vm.detalhes.data.errors, function (e, key) {
+            return _c("li", { key: key }, [_vm._v(_vm._s(e[0]))])
+          }),
+          0
+        )
+      : _vm._e(),
   ])
 }
 var staticRenderFns = []
@@ -29873,9 +29908,25 @@ var render = function () {
             key: "alertas",
             fn: function () {
               return [
-                _c("alert-component", { attrs: { tipo: "success" } }),
+                _vm.transacaoStatus == "adicionado"
+                  ? _c("alert-component", {
+                      attrs: {
+                        tipo: "success",
+                        detalhes: _vm.transacaoDetalhes,
+                        titulo: "Marca cadastrada com secesso",
+                      },
+                    })
+                  : _vm._e(),
                 _vm._v(" "),
-                _c("alert-component", { attrs: { tipo: "danger" } }),
+                _vm.transacaoStatus == "erro"
+                  ? _c("alert-component", {
+                      attrs: {
+                        tipo: "danger",
+                        detalhes: _vm.transacaoDetalhes,
+                        titulo: "Erro ao tentar cadastrar a marca",
+                      },
+                    })
+                  : _vm._e(),
               ]
             },
             proxy: true,

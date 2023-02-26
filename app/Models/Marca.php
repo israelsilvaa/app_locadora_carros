@@ -20,7 +20,7 @@ class Marca extends Model
     public function feedback(){
         return [
             'required' => 'O campo :attribute é obrigatório',
-            'nome.unique' => 'O da marca já existe',
+            'nome.unique' => 'O nome da marca já existe',
             'nome.min' => 'O nome deve ter no minimo 3 caracteres',
             'nome.mimes' => 'Tipos de imagens permitidas: PNG, JPEG E JPG'
         ];
