@@ -35,20 +35,30 @@
                 <!-- início do card de listagem de marcas -->
                 <card-component titulo="Relação de marcas">
                     <template v-slot:conteudo>
-                        <table-component 
-                            :dados="marcas.data" 
-                            :titulos="{
-                                id: {titulo: 'ID', tipo: 'texto'},
-                                nome:{titulo: 'Nome', tipo: 'texto'}, 
-                                imagem:{titulo: 'Imagem', tipo: 'imagem'},
-                                created_at:{titulo: 'Criação', tipo: 'data'},
-                            }">
+                        <table-component :dados="marcas.data" :titulos="{
+                            id: { titulo: 'ID', tipo: 'texto' },
+                            nome: { titulo: 'Nome', tipo: 'texto' },
+                            imagem: { titulo: 'Imagem', tipo: 'imagem' },
+                            created_at: { titulo: 'Criação', tipo: 'data' },
+                        }">
                         </table-component>
                     </template>
 
                     <template v-slot:rodape>
-                        <button type="button" class="btn btn-primary btn-sm float-right" data-bs-toggle="modal"
-                            data-bs-target="#modalMarca">Adicionar</button>
+                        <div class="row">
+                            <div class="col">
+                                <paginate-component>
+                                    <li v-for="l,key in marcas.links" :key="key" class="page-item">
+                                        <a class="page-link" href="#" v-html="l.label"></a>
+                                    </li>
+                                    
+                                </paginate-component>
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-primary btn-sm float-right" data-bs-toggle="modal"
+                                    data-bs-target="#modalMarca">Adicionar</button>
+                            </div>
+                        </div>
                     </template>
                 </card-component>
                 <!-- fim do card de listagem de marcas -->
@@ -110,7 +120,7 @@ export default {
             arquivoImagem: [],
             transacaoStatus: '',
             transacaoDetalhes: {},
-            marcas: {data: []},
+            marcas: { data: [] },
         }
     },
     methods: {
