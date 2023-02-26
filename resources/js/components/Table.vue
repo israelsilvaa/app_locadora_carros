@@ -8,10 +8,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="dado in dados" :key="dado.id">
-                    <th scope="row">{{ dado.id }}</th>
+                <tr v-for="obj in dados" :key="obj.id">
+                    <td v-if="titulos.includes(chave)" v-for="valor, chave in obj" :key="chave" >
+                        <span v-if="chave == 'imagem'">
+                            <img :src="'/storage/'+valor" alt="" width="40" height="40">
+                        </span>
+                        <span v-else>
+                            {{ valor }}
+                        </span>
+                    </td>
+
+                    <!-- <th scope="row">{{ dado.id }}</th>
                     <th scope="row">{{ dado.nome }}</th>
-                    <th scope="row"> <img :src="'/storage/'+dado.imagem" alt="" width="40" height="40"></th>
+                    <th scope="row"> <img :src="'/storage/'+dado.imagem" alt="" width="40" height="40"></th>  -->
                 </tr>
             </tbody>
         </table>

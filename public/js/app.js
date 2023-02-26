@@ -5652,6 +5652,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['dados', 'titulos']
@@ -29715,23 +29724,36 @@ var render = function () {
       _vm._v(" "),
       _c(
         "tbody",
-        _vm._l(_vm.dados, function (dado) {
-          return _c("tr", { key: dado.id }, [
-            _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(dado.id))]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(dado.nome))]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "row" } }, [
-              _c("img", {
-                attrs: {
-                  src: "/storage/" + dado.imagem,
-                  alt: "",
-                  width: "40",
-                  height: "40",
-                },
-              }),
-            ]),
-          ])
+        _vm._l(_vm.dados, function (obj) {
+          return _c(
+            "tr",
+            { key: obj.id },
+            _vm._l(obj, function (valor, chave) {
+              return _vm.titulos.includes(chave)
+                ? _c("td", { key: chave }, [
+                    chave == "imagem"
+                      ? _c("span", [
+                          _c("img", {
+                            attrs: {
+                              src: "/storage/" + valor,
+                              alt: "",
+                              width: "40",
+                              height: "40",
+                            },
+                          }),
+                        ])
+                      : _c("span", [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(valor) +
+                              "\n                    "
+                          ),
+                        ]),
+                  ])
+                : _vm._e()
+            }),
+            0
+          )
         }),
         0
       ),
@@ -29873,7 +29895,7 @@ var render = function () {
                       _c("table-component", {
                         attrs: {
                           dados: _vm.marcas,
-                          titulos: ["ID", "NOME", "IMAGEM"],
+                          titulos: ["id", "nome", "imagem"],
                         },
                       }),
                     ]
