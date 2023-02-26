@@ -36,7 +36,7 @@
                 <card-component titulo="Relação de marcas">
                     <template v-slot:conteudo>
                         <table-component 
-                            :dados="marcas" 
+                            :dados="marcas.data" 
                             :titulos="{
                                 id: {titulo: 'ID', tipo: 'texto'},
                                 nome:{titulo: 'Nome', tipo: 'texto'}, 

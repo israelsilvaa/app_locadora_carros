@@ -29922,7 +29922,7 @@ var render = function () {
                     return [
                       _c("table-component", {
                         attrs: {
-                          dados: _vm.marcas,
+                          dados: _vm.marcas.data,
                           titulos: {
                             id: { titulo: "ID", tipo: "texto" },
                             nome: { titulo: "Nome", tipo: "texto" },
