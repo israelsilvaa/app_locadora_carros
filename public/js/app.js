@@ -5763,6 +5763,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   computed: {
@@ -5788,7 +5790,13 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     carregarLista: function carregarLista() {
       var _this = this;
-      axios.get(this.urlBase).then(function (response) {
+      var config = {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': this.token
+        }
+      };
+      axios.get(this.urlBase, config).then(function (response) {
         _this.marcas = response.data;
         console.log(_this.marcas);
       })["catch"](function (errors) {

@@ -50,8 +50,10 @@
         <modal-component id="modalMarca" titulo="Adicionar marca">
 
             <template v-slot:alertas>
-                <alert-component tipo="success" :detalhes="transacaoDetalhes" titulo="Marca cadastrada com secesso" v-if="transacaoStatus == 'adicionado'"></alert-component>
-                <alert-component tipo="danger" :detalhes="transacaoDetalhes" titulo="Erro ao tentar cadastrar a marca" v-if="transacaoStatus == 'erro'"></alert-component>
+                <alert-component tipo="success" :detalhes="transacaoDetalhes" titulo="Marca cadastrada com secesso"
+                    v-if="transacaoStatus == 'adicionado'"></alert-component>
+                <alert-component tipo="danger" :detalhes="transacaoDetalhes" titulo="Erro ao tentar cadastrar a marca"
+                    v-if="transacaoStatus == 'erro'"></alert-component>
             </template>
 
             <template v-slot:conteudo>
@@ -104,15 +106,23 @@ export default {
         }
     },
     methods: {
-        carregarLista(){
-            axios.get(this.urlBase)
-            .then(response =>{
-                this.marcas = response.data 
-                console.log(this.marcas)
-            })
-            .catch(errors => {
-                console.log(errors)
-            })
+        carregarLista() {
+
+            let config = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': this.token
+                }
+            }
+
+            axios.get(this.urlBase, config)
+                .then(response => {
+                    this.marcas = response.data
+                    console.log(this.marcas)
+                })
+                .catch(errors => {
+                    console.log(errors)
+                })
         },
         carregarImagem(e) {
             this.arquivoImagem = e.target.files
@@ -136,21 +146,21 @@ export default {
                 .then(response => {
                     this.transacaoStatus = 'adicionado'
                     this.transacaoDetalhes = {
-                        mensagem:'ID do registro: '+ response.data.id
-                    } 
+                        mensagem: 'ID do registro: ' + response.data.id
+                    }
                     console.log(response)
                 })
                 .catch(errors => {
                     this.transacaoStatus = 'erro'
-                    this.transacaoDetalhes= {
-                        mensagem: errors.response.data.message ,
+                    this.transacaoDetalhes = {
+                        mensagem: errors.response.data.message,
                         dados: errors.response.data.errors
-                    } 
+                    }
                     // errors.response.data.message
                 })
         }
     },
-    mounted(){
+    mounted() {
         this.carregarLista()
     }
 }
