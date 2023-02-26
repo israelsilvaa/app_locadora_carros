@@ -5652,20 +5652,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['dados', 'titulos']
+});
 
 /***/ }),
 
@@ -5680,6 +5670,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -29706,58 +29699,46 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "table table-hover" }, [
+  return _c("div", [
+    _c("table", { staticClass: "table table-hover" }, [
       _c("thead", [
-        _c("tr", [
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("First")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("Last")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("Handle")]),
-        ]),
+        _c(
+          "tr",
+          _vm._l(_vm.titulos, function (t, key) {
+            return _c("th", { key: key, attrs: { scope: "col" } }, [
+              _vm._v(_vm._s(t)),
+            ])
+          }),
+          0
+        ),
       ]),
       _vm._v(" "),
-      _c("tbody", [
-        _c("tr", [
-          _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("Mark")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("Otto")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("@mdo")]),
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { attrs: { scope: "row" } }, [_vm._v("2")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("Jacob")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("Thornton")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("@fat")]),
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { attrs: { scope: "row" } }, [_vm._v("3")]),
-          _vm._v(" "),
-          _c("td", { attrs: { colspan: "2" } }, [_vm._v("Larry the Bird")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("@twitter")]),
-        ]),
-      ]),
-    ])
-  },
-]
+      _c(
+        "tbody",
+        _vm._l(_vm.dados, function (dado) {
+          return _c("tr", { key: dado.id }, [
+            _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(dado.id))]),
+            _vm._v(" "),
+            _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(dado.nome))]),
+            _vm._v(" "),
+            _c("th", { attrs: { scope: "row" } }, [
+              _c("img", {
+                attrs: {
+                  src: "/storage/" + dado.imagem,
+                  alt: "",
+                  width: "40",
+                  height: "40",
+                },
+              }),
+            ]),
+          ])
+        }),
+        0
+      ),
+    ]),
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -29888,7 +29869,14 @@ var render = function () {
                 {
                   key: "conteudo",
                   fn: function () {
-                    return [_c("table-component")]
+                    return [
+                      _c("table-component", {
+                        attrs: {
+                          dados: _vm.marcas,
+                          titulos: ["ID", "NOME", "IMAGEM"],
+                        },
+                      }),
+                    ]
                   },
                   proxy: true,
                 },
