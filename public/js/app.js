@@ -5663,7 +5663,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['dados', 'titulos']
+  props: ['dados', 'titulos'],
+  computed: {
+    dadosFiltrados: function dadosFiltrados() {
+      var campos = Object.keys(this.titulos);
+      var dadosFiltrados = [];
+      this.dados.map(function (item, chave) {
+        var itemFiltrado = {};
+        campos.forEach(function (campo) {
+          itemFiltrado[campo] = item[campo];
+        });
+        dadosFiltrados.push(itemFiltrado);
+      });
+      return dadosFiltrados;
+    }
+  }
 });
 
 /***/ }),
@@ -5679,6 +5693,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5800,7 +5819,6 @@ __webpack_require__.r(__webpack_exports__);
       };
       axios.get(this.urlBase, config).then(function (response) {
         _this.marcas = response.data;
-        console.log(_this.marcas);
       })["catch"](function (errors) {
         console.log(errors);
       });
@@ -5810,7 +5828,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     salvar: function salvar() {
       var _this2 = this;
-      console.log(this.nomeMarca, this.arquivoImagem[0]);
       var formData = new FormData();
       formData.append('nome', this.nomeMarca);
       formData.append('imagem', this.arquivoImagem[0]);
@@ -5826,7 +5843,6 @@ __webpack_require__.r(__webpack_exports__);
         _this2.transacaoDetalhes = {
           mensagem: 'ID do registro: ' + response.data.id
         };
-        console.log(response);
       })["catch"](function (errors) {
         _this2.transacaoStatus = 'erro';
         _this2.transacaoDetalhes = {
@@ -29715,7 +29731,7 @@ var render = function () {
           "tr",
           _vm._l(_vm.titulos, function (t, key) {
             return _c("th", { key: key, attrs: { scope: "col" } }, [
-              _vm._v(_vm._s(t)),
+              _vm._v(_vm._s(t.titulo)),
             ])
           }),
           0
@@ -29724,33 +29740,45 @@ var render = function () {
       _vm._v(" "),
       _c(
         "tbody",
-        _vm._l(_vm.dados, function (obj) {
+        _vm._l(_vm.dadosFiltrados, function (obj, chave) {
           return _c(
             "tr",
-            { key: obj.id },
-            _vm._l(obj, function (valor, chave) {
-              return _vm.titulos.includes(chave)
-                ? _c("td", { key: chave }, [
-                    chave == "imagem"
-                      ? _c("span", [
-                          _c("img", {
-                            attrs: {
-                              src: "/storage/" + valor,
-                              alt: "",
-                              width: "40",
-                              height: "40",
-                            },
-                          }),
-                        ])
-                      : _c("span", [
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(valor) +
-                              "\n                    "
-                          ),
-                        ]),
-                  ])
-                : _vm._e()
+            { key: chave },
+            _vm._l(obj, function (valor, chaveValor) {
+              return _c("td", { key: chaveValor }, [
+                _vm.titulos[chaveValor].tipo == "texto"
+                  ? _c("span", [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(valor) +
+                          "\n                    "
+                      ),
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.titulos[chaveValor].tipo == "imagem"
+                  ? _c("span", [
+                      _c("img", {
+                        attrs: {
+                          src: "/storage/" + valor,
+                          alt: "",
+                          width: "40",
+                          height: "40",
+                        },
+                      }),
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.titulos[chaveValor].tipo == "data"
+                  ? _c("span", [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(valor) +
+                          "\n                    "
+                      ),
+                    ])
+                  : _vm._e(),
+              ])
             }),
             0
           )
@@ -29895,7 +29923,12 @@ var render = function () {
                       _c("table-component", {
                         attrs: {
                           dados: _vm.marcas,
-                          titulos: ["id", "nome", "imagem"],
+                          titulos: {
+                            id: { titulo: "ID", tipo: "texto" },
+                            nome: { titulo: "Nome", tipo: "texto" },
+                            imagem: { titulo: "Imagem", tipo: "imagem" },
+                            created_at: { titulo: "Criação", tipo: "data" },
+                          },
                         },
                       }),
                     ]

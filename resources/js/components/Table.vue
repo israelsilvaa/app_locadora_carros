@@ -4,23 +4,23 @@
         <table class="table table-hover">
             <thead>
                 <tr >
-                    <th scope="col" v-for="t,key in titulos" :key="key">{{ t }}</th>
+                    <th scope="col" v-for="t,key in titulos" :key="key">{{ t.titulo }}</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="obj in dados" :key="obj.id">
-                    <td v-if="titulos.includes(chave)" v-for="valor, chave in obj" :key="chave" >
-                        <span v-if="chave == 'imagem'">
-                            <img :src="'/storage/'+valor" alt="" width="40" height="40">
+
+                <tr v-for="obj, chave in dadosFiltrados" :key="chave">
+                    <td v-for="valor,chaveValor in obj" :key="chaveValor">
+                        <span v-if="titulos[chaveValor].tipo == 'texto'">
+                            {{ valor }}
                         </span>
-                        <span v-else>
+                        <span v-if="titulos[chaveValor].tipo == 'imagem'">
+                            <img :src="'/storage/'+ valor" alt="" width="40" height="40">
+                        </span>
+                        <span v-if="titulos[chaveValor].tipo == 'data'">
                             {{ valor }}
                         </span>
                     </td>
-
-                    <!-- <th scope="row">{{ dado.id }}</th>
-                    <th scope="row">{{ dado.nome }}</th>
-                    <th scope="row"> <img :src="'/storage/'+dado.imagem" alt="" width="40" height="40"></th>  -->
                 </tr>
             </tbody>
         </table>
@@ -29,6 +29,23 @@
 
 <script>
 export default {
-    props: ['dados', 'titulos']
+    props: ['dados', 'titulos'],
+    computed:{
+        dadosFiltrados(){
+            let campos = Object.keys(this.titulos)
+            let dadosFiltrados = []
+
+            this.dados.map((item, chave)=> {
+
+                let itemFiltrado = {}
+                campos.forEach(campo =>{
+                    itemFiltrado[campo] = item[campo]
+                    
+                })
+                dadosFiltrados.push(itemFiltrado)
+            })
+            return dadosFiltrados
+        }
+    }
 }
 </script>

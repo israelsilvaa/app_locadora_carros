@@ -37,7 +37,12 @@
                     <template v-slot:conteudo>
                         <table-component 
                             :dados="marcas" 
-                            :titulos="['id', 'nome', 'imagem']">
+                            :titulos="{
+                                id: {titulo: 'ID', tipo: 'texto'},
+                                nome:{titulo: 'Nome', tipo: 'texto'}, 
+                                imagem:{titulo: 'Imagem', tipo: 'imagem'},
+                                created_at:{titulo: 'Criação', tipo: 'data'},
+                            }">
                         </table-component>
                     </template>
 
@@ -121,7 +126,6 @@ export default {
             axios.get(this.urlBase, config)
                 .then(response => {
                     this.marcas = response.data
-                    console.log(this.marcas)
                 })
                 .catch(errors => {
                     console.log(errors)
@@ -131,7 +135,6 @@ export default {
             this.arquivoImagem = e.target.files
         },
         salvar() {
-            console.log(this.nomeMarca, this.arquivoImagem[0])
 
             let formData = new FormData();
             formData.append('nome', this.nomeMarca)
@@ -151,7 +154,6 @@ export default {
                     this.transacaoDetalhes = {
                         mensagem: 'ID do registro: ' + response.data.id
                     }
-                    console.log(response)
                 })
                 .catch(errors => {
                     this.transacaoStatus = 'erro'
