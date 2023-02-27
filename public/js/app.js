@@ -5827,6 +5827,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   computed: {
@@ -29973,7 +29986,13 @@ var render = function () {
                     _vm.visualizar
                       ? _c(
                           "button",
-                          { staticClass: "btn btn-outline-primary btn-sm" },
+                          {
+                            staticClass: "btn btn-outline-primary btn-sm",
+                            attrs: {
+                              "data-bs-toggle": "modal",
+                              "data-bs-target": "#modalMarcaVisualizar",
+                            },
+                          },
                           [_vm._v("Visualizar")]
                         )
                       : _vm._e(),
@@ -30208,7 +30227,7 @@ var render = function () {
                       _c("div", { staticClass: "row" }, [
                         _c(
                           "div",
-                          { staticClass: "col" },
+                          { staticClass: "col-10" },
                           [
                             _c(
                               "paginate-component",
@@ -30229,7 +30248,6 @@ var render = function () {
                                   [
                                     _c("a", {
                                       staticClass: "page-link",
-                                      attrs: { href: "#" },
                                       domProps: { innerHTML: _vm._s(l.label) },
                                     }),
                                   ]
@@ -30279,7 +30297,7 @@ var render = function () {
                       attrs: {
                         tipo: "success",
                         detalhes: _vm.transacaoDetalhes,
-                        titulo: "Marca cadastrada com secesso",
+                        titulo: "Cadastro realizado com sucesso",
                       },
                     })
                   : _vm._e(),
@@ -30364,17 +30382,17 @@ var render = function () {
                           titulo: "Imagem",
                           id: "novoImagem",
                           "id-help": "novoImagemHelp",
-                          "texto-ajuda": "Selelcione uma imagem no formato PNG",
+                          "texto-ajuda": "Selecione uma imagem no formato PNG",
                         },
                       },
                       [
                         _c("input", {
-                          staticClass: "form-control",
+                          staticClass: "form-control-file",
                           attrs: {
                             type: "file",
                             id: "novoImagem",
                             "aria-describedby": "novoImagemHelp",
-                            placeholder: "Selelcione uma imagem",
+                            placeholder: "Selecione uma imagem",
                           },
                           on: {
                             change: function ($event) {
@@ -30404,9 +30422,9 @@ var render = function () {
                   "button",
                   {
                     staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-bs-dismiss": "modal" },
+                    attrs: { type: "button", "data-dismiss": "modal" },
                   },
-                  [_vm._v("fechar")]
+                  [_vm._v("Fechar")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -30420,7 +30438,43 @@ var render = function () {
                       },
                     },
                   },
-                  [_vm._v("Salvar mudanças")]
+                  [_vm._v("Salvar")]
+                ),
+              ]
+            },
+            proxy: true,
+          },
+        ]),
+      }),
+      _vm._v(" "),
+      _c("modal-component", {
+        attrs: { id: "modalMarcaVisualizar", titulo: "Visualizar marca" },
+        scopedSlots: _vm._u([
+          {
+            key: "alertas",
+            fn: function () {
+              return undefined
+            },
+            proxy: true,
+          },
+          {
+            key: "conteudo",
+            fn: function () {
+              return [_vm._v("\n            Teste\n        ")]
+            },
+            proxy: true,
+          },
+          {
+            key: "rodape",
+            fn: function () {
+              return [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                  },
+                  [_vm._v("Fechar")]
                 ),
               ]
             },
