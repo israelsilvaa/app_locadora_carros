@@ -27,8 +27,9 @@
                             :data-bs-toggle="visualizar.dataToggle"
                             :data-bs-target="visualizar.dataTarget">Visualizar</button>
                         <button v-if="atualizar" class="btn btn-outline-primary btn-sm">Atualizar</button>
-                        <button v-if="remover.visivel" class="btn btn-outline-danger btn-sm" :data-bs-toggle="remover.dataToggle"
-                            :data-bs-target="remover.dataTarget" @click="setStore(obj)">Remover</button>
+                        <button v-if="remover.visivel" class="btn btn-outline-danger btn-sm"
+                            :data-bs-toggle="remover.dataToggle" :data-bs-target="remover.dataTarget"
+                            @click="setStore(obj)">Remover</button>
                     </td>
                 </tr>
             </tbody>
@@ -58,6 +59,8 @@ export default {
     },
     methods: {
         setStore(obj) {
+            this.$store.state.transacao.status = ''
+            this.$store.state.transacao.mensagem = ''
             this.$store.state.item = obj
         }
     }

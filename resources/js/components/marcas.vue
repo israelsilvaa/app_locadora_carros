@@ -135,7 +135,10 @@
 
         <!-- início do modal de remoção de marca -->
         <modal-component id="modalMarcaRemover" titulo="Visualizar marca">
-            <template v-slot:alertas></template>
+            <template v-slot:alertas>
+                <alert-component tipo="success" titulo="Transação realizada com sucesso" :detalhes="$store.state.transacao" v-if="$store.state.transacao.status == 'sucesso'"></alert-component>
+                <alert-component tipo="danger" titulo="Erro na transação" :detalhes="$store.state.transacao" v-if="$store.state.transacao.status == 'erro'"></alert-component>
+            </template>
             <template v-slot:conteudo>
                 <input-container-component titulo="ID">
                     <input type="text" class="form-control" :value="$store.state.item.id" disabled>
@@ -201,11 +204,13 @@ export default {
 
             axios.post(url, formData, config)
                 .then(response => {
-                    console.log('Registro removido com sucesso', response)
+                    this.$store.state.transacao.status = 'sucesso'
+                    this.$store.state.transacao.mensagem = response.data.msg
                     this.carregarLista()
                 })
                 .catch(errors => {
-                    console.log('Houve um erro na tentiva de remoção do registro', errors.response)
+                    this.$store.state.transacao.status = 'erro'
+                    this.$store.state.transacao.mensagem = errors.response.data.erro
                 })
 
         },

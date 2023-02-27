@@ -6960,6 +6960,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['dados', 'titulos', 'atualizar', 'visualizar', 'remover'],
@@ -6979,6 +6980,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     setStore: function setStore(obj) {
+      this.$store.state.transacao.status = '';
+      this.$store.state.transacao.mensagem = '';
       this.$store.state.item = obj;
     }
   }
@@ -6997,6 +7000,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -7200,10 +7206,12 @@ __webpack_require__.r(__webpack_exports__);
       };
       var url = this.urlBase + '/' + this.$store.state.item.id;
       axios.post(url, formData, config).then(function (response) {
-        console.log('Registro removido com sucesso', response);
+        _this.$store.state.transacao.status = 'sucesso';
+        _this.$store.state.transacao.mensagem = response.data.msg;
         _this.carregarLista();
       })["catch"](function (errors) {
-        console.log('Houve um erro na tentiva de remoção do registro', errors.response);
+        _this.$store.state.transacao.status = 'erro';
+        _this.$store.state.transacao.mensagem = errors.response.data.erro;
       });
     },
     pesquisar: function pesquisar() {
@@ -7312,7 +7320,11 @@ window.Vue = (__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(Vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var store = new Vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
-    item: {}
+    item: {},
+    transacao: {
+      status: '',
+      mensagem: ''
+    }
   }
 });
 /**
@@ -31907,7 +31919,27 @@ var render = function () {
           {
             key: "alertas",
             fn: function () {
-              return undefined
+              return [
+                _vm.$store.state.transacao.status == "sucesso"
+                  ? _c("alert-component", {
+                      attrs: {
+                        tipo: "success",
+                        titulo: "Transação realizada com sucesso",
+                        detalhes: _vm.$store.state.transacao,
+                      },
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.$store.state.transacao.status == "erro"
+                  ? _c("alert-component", {
+                      attrs: {
+                        tipo: "danger",
+                        titulo: "Erro na transação",
+                        detalhes: _vm.$store.state.transacao,
+                      },
+                    })
+                  : _vm._e(),
+              ]
             },
             proxy: true,
           },
