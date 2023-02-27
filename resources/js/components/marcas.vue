@@ -11,22 +11,23 @@
                             <div class="col mb-3">
                                 <input-container-component titulo="ID" id="inputId" id-help="idHelp"
                                     texto-ajuda="Opcional. Informe o ID da marca">
-                                    <input type="number" class="form-control" id="inputId" aria-describedby="idHelp"
-                                        placeholder="ID">
+                                    <input type="number" class="form-control" id="inputId" v-model="busca.id"
+                                        aria-describedby="idHelp" placeholder="ID">
                                 </input-container-component>
                             </div>
                             <div class="col mb-3">
                                 <input-container-component titulo="Nome da marca" id="inputNome" id-help="nomeHelp"
                                     texto-ajuda="Opcional. Informe o nome da marca">
-                                    <input type="text" class="form-control" id="inputNome" aria-describedby="nomeHelp"
-                                        placeholder="Nome da marca">
+                                    <input type="text" class="form-control" id="inputNome" v-model="busca.nome"
+                                        aria-describedby="nomeHelp" placeholder="Nome da marca">
                                 </input-container-component>
                             </div>
                         </div>
                     </template>
 
                     <template v-slot:rodape>
-                        <button type="submit" class="btn btn-primary btn-sm float-right">Pesquisar</button>
+                        <button type="submit"
+                            class="btn btn-primary btn-sm float-right" @click="pesquisar()">Pesquisar</button>
                     </template>
                 </card-component>
                 <!-- fim do card de busca -->
@@ -48,7 +49,8 @@
                         <div class="row">
                             <div class="col">
                                 <paginate-component>
-                                    <li v-for="l, key in marcas.links" :key="key" @click="paginacao(l)" :class="l.active ? 'page-item active' : 'page-item'">
+                                    <li v-for="l, key in marcas.links" :key="key" @click="paginacao(l)"
+                                        :class="l.active ? 'page-item active' : 'page-item'">
                                         <a class="page-link" href="#" v-html="l.label"></a>
                                     </li>
 
@@ -121,9 +123,29 @@ export default {
             transacaoStatus: '',
             transacaoDetalhes: {},
             marcas: { data: [] },
+            busca: { id: '', nome: '' }
         }
     },
     methods: {
+        pesquisar() {
+            //console.log(this.busca)
+
+            let filtro = ''
+
+            for (let chave in this.busca) {
+
+                if (this.busca[chave]) {
+                    //console.log(chave, this.busca[chave])
+                    if (filtro != '') {
+                        filtro += ";"
+                    }
+
+                    filtro += chave + ':like:' + this.busca[chave]
+                }
+            }
+
+            console.log(filtro)
+        },
         paginacao(l) {
             if (l.url) {
                 this.urlBase = l.url //ajustando a url de consulta com o parâmetro de página
