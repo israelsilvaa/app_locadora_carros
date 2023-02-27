@@ -6957,6 +6957,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['dados', 'titulos', 'atualizar', 'visualizar', 'remover'],
@@ -6972,6 +6974,11 @@ __webpack_require__.r(__webpack_exports__);
         dadosFiltrados.push(itemFiltrado);
       });
       return dadosFiltrados;
+    }
+  },
+  methods: {
+    setStore: function setStore(obj) {
+      this.$store.state.item = obj;
     }
   }
 });
@@ -6989,6 +6996,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7243,7 +7269,7 @@ window.Vue = (__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(Vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var store = new Vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
-    teste: 'teste de recuperação da store do VueX'
+    item: {}
   }
 });
 /**
@@ -31269,6 +31295,11 @@ var render = function () {
                               "data-bs-toggle": _vm.visualizar.dataToggle,
                               "data-bs-target": _vm.visualizar.dataTarget,
                             },
+                            on: {
+                              click: function ($event) {
+                                return _vm.setStore(obj)
+                              },
+                            },
                           },
                           [_vm._v("Visualizar")]
                         )
@@ -31741,7 +31772,53 @@ var render = function () {
           {
             key: "conteudo",
             fn: function () {
-              return [_vm._v("\n            Teste\n        ")]
+              return [
+                _c("input-container-component", { attrs: { titulo: "ID" } }, [
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: { type: "text", disabled: "" },
+                    domProps: { value: _vm.$store.state.item.id },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "input-container-component",
+                  { attrs: { titulo: "Nome da marca" } },
+                  [
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: { type: "text", disabled: "" },
+                      domProps: { value: _vm.$store.state.item.nome },
+                    }),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "input-container-component",
+                  { attrs: { titulo: "Imagem" } },
+                  [
+                    _vm.$store.state.item.imagem
+                      ? _c("img", {
+                          attrs: {
+                            src: "storage/" + _vm.$store.state.item.imagem,
+                          },
+                        })
+                      : _vm._e(),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "input-container-component",
+                  { attrs: { titulo: "Data de criação" } },
+                  [
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: { type: "text", disabled: "" },
+                      domProps: { value: _vm.$store.state.item.created_at },
+                    }),
+                  ]
+                ),
+              ]
             },
             proxy: true,
           },

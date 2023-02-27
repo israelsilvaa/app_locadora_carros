@@ -9,20 +9,25 @@
                     <template v-slot:conteudo>
                         <div class="form-row">
                             <div class="col mb-3">
-                                <input-container-component titulo="ID" id="inputId" id-help="idHelp" texto-ajuda="Opcional. Informe o ID da marca">
-                                    <input type="number" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="ID" v-model="busca.id">
+                                <input-container-component titulo="ID" id="inputId" id-help="idHelp"
+                                    texto-ajuda="Opcional. Informe o ID da marca">
+                                    <input type="number" class="form-control" id="inputId" aria-describedby="idHelp"
+                                        placeholder="ID" v-model="busca.id">
                                 </input-container-component>
                             </div>
                             <div class="col mb-3">
-                                <input-container-component titulo="Nome da marca" id="inputNome" id-help="nomeHelp" texto-ajuda="Opcional. Informe o nome da marca">
-                                    <input type="text" class="form-control" id="inputNome" aria-describedby="nomeHelp" placeholder="Nome da marca" v-model="busca.nome">
+                                <input-container-component titulo="Nome da marca" id="inputNome" id-help="nomeHelp"
+                                    texto-ajuda="Opcional. Informe o nome da marca">
+                                    <input type="text" class="form-control" id="inputNome" aria-describedby="nomeHelp"
+                                        placeholder="Nome da marca" v-model="busca.nome">
                                 </input-container-component>
                             </div>
                         </div>
                     </template>
 
                     <template v-slot:rodape>
-                        <button type="submit" class="btn btn-primary btn-sm float-right" @click="pesquisar()">Pesquisar</button>
+                        <button type="submit" class="btn btn-primary btn-sm float-right"
+                            @click="pesquisar()">Pesquisar</button>
                     </template>
                 </card-component>
                 <!-- fim do card de busca -->
@@ -31,18 +36,14 @@
                 <!-- início do card de listagem de marcas -->
                 <card-component titulo="Relação de marcas">
                     <template v-slot:conteudo>
-                        <table-component
-                            :dados="marcas.data"
-                            :visualizar="{visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaVisualizar'}"
-                            :atualizar="true"
-                            :remover="true"
-                            :titulos="{
-                                id: {titulo: 'ID', tipo: 'texto'},
-                                nome: {titulo: 'Nome', tipo: 'texto'},
-                                imagem: {titulo: 'Imagem', tipo: 'imagem'},
-                                created_at: {titulo: 'Criação', tipo: 'data'},
-                            }"
-                        ></table-component>
+                        <table-component :dados="marcas.data"
+                            :visualizar="{ visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaVisualizar' }"
+                            :atualizar="true" :remover="true" :titulos="{
+                                id: { titulo: 'ID', tipo: 'texto' },
+                                nome: { titulo: 'Nome', tipo: 'texto' },
+                                imagem: { titulo: 'Imagem', tipo: 'imagem' },
+                                created_at: { titulo: 'Criação', tipo: 'data' },
+                            }"></table-component>
                     </template>
 
                     <template v-slot:rodape>
@@ -50,9 +51,7 @@
                             <div class="col-10">
                                 <paginate-component>
                                     <li v-for="l, key in marcas.links" :key="key"
-                                        :class="l.active ? 'page-item active' : 'page-item'"
-                                        @click="paginacao(l)"
-                                    >
+                                        :class="l.active ? 'page-item active' : 'page-item'" @click="paginacao(l)">
                                         <a class="page-link" v-html="l.label"></a>
                                     </li>
                                 </paginate-component>
@@ -74,21 +73,27 @@
         <modal-component id="modalMarca" titulo="Adicionar marca">
 
             <template v-slot:alertas>
-                <alert-component tipo="success" :detalhes="transacaoDetalhes" titulo="Cadastro realizado com sucesso" v-if="transacaoStatus == 'adicionado'"></alert-component>
-                <alert-component tipo="danger" :detalhes="transacaoDetalhes" titulo="Erro ao tentar cadastrar a marca" v-if="transacaoStatus == 'erro'"></alert-component>
+                <alert-component tipo="success" :detalhes="transacaoDetalhes" titulo="Cadastro realizado com sucesso"
+                    v-if="transacaoStatus == 'adicionado'"></alert-component>
+                <alert-component tipo="danger" :detalhes="transacaoDetalhes" titulo="Erro ao tentar cadastrar a marca"
+                    v-if="transacaoStatus == 'erro'"></alert-component>
             </template>
 
             <template v-slot:conteudo>
                 <div class="form-group">
-                    <input-container-component titulo="Nome da marca" id="novoNome" id-help="novoNomeHelp" texto-ajuda="Informe o nome da marca">
-                        <input type="text" class="form-control" id="novoNome" aria-describedby="novoNomeHelp" placeholder="Nome da marca" v-model="nomeMarca">
+                    <input-container-component titulo="Nome da marca" id="novoNome" id-help="novoNomeHelp"
+                        texto-ajuda="Informe o nome da marca">
+                        <input type="text" class="form-control" id="novoNome" aria-describedby="novoNomeHelp"
+                            placeholder="Nome da marca" v-model="nomeMarca">
                     </input-container-component>
                     {{ nomeMarca }}
                 </div>
 
                 <div class="form-group">
-                    <input-container-component titulo="Imagem" id="novoImagem" id-help="novoImagemHelp" texto-ajuda="Selecione uma imagem no formato PNG">
-                        <input type="file" class="form-control-file" id="novoImagem" aria-describedby="novoImagemHelp" placeholder="Selecione uma imagem" @change="carregarImagem($event)">
+                    <input-container-component titulo="Imagem" id="novoImagem" id-help="novoImagemHelp"
+                        texto-ajuda="Selecione uma imagem no formato PNG">
+                        <input type="file" class="form-control-file" id="novoImagem" aria-describedby="novoImagemHelp"
+                            placeholder="Selecione uma imagem" @change="carregarImagem($event)">
                     </input-container-component>
                     {{ arquivoImagem }}
                 </div>
@@ -105,7 +110,21 @@
         <modal-component id="modalMarcaVisualizar" titulo="Visualizar marca">
             <template v-slot:alertas></template>
             <template v-slot:conteudo>
-                Teste
+                <input-container-component titulo="ID">
+                    <input type="text" class="form-control" :value="$store.state.item.id" disabled>
+                </input-container-component>
+
+                <input-container-component titulo="Nome da marca">
+                    <input type="text" class="form-control" :value="$store.state.item.nome" disabled>
+                </input-container-component>
+
+                <input-container-component titulo="Imagem">
+                    <img :src="'storage/' + $store.state.item.imagem" v-if="$store.state.item.imagem">
+                </input-container-component>
+
+                <input-container-component titulo="Data de criação">
+                    <input type="text" class="form-control" :value="$store.state.item.created_at" disabled>
+                </input-container-component>
             </template>
             <template v-slot:rodape>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
