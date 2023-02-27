@@ -37,10 +37,9 @@
                 <card-component titulo="Relação de marcas">
                     <template v-slot:conteudo>
                         <table-component :dados="marcas.data"
-                            :visualizar="{ visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaVisualizar'}"
-                            :atualizar="true" 
-                            :remover="{ visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaRemover'}" 
-                            :titulos="{
+                            :visualizar="{ visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaVisualizar' }"
+                            :atualizar="true"
+                            :remover="{ visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaRemover' }" :titulos="{
                                 id: { titulo: 'ID', tipo: 'texto' },
                                 nome: { titulo: 'Nome', tipo: 'texto' },
                                 imagem: { titulo: 'Imagem', tipo: 'imagem' },
@@ -134,8 +133,8 @@
         </modal-component>
         <!-- fim do modal de inclusão de marca -->
 
-         <!-- início do modal de remoção de marca -->
-         <modal-component id="modalMarcaRemover" titulo="Visualizar marca">
+        <!-- início do modal de remoção de marca -->
+        <modal-component id="modalMarcaRemover" titulo="Visualizar marca">
             <template v-slot:alertas></template>
             <template v-slot:conteudo>
                 <input-container-component titulo="ID">
@@ -148,6 +147,7 @@
             </template>
             <template v-slot:rodape>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-danger" @click="remover()">Remover</button>
             </template>
         </modal-component>
         <!-- fim do modal de remoção de marca -->
@@ -169,9 +169,9 @@ export default {
     data() {
         return {
             urlBase: 'http://localhost:8000/api/v1/marca',
-            nomeMarca: '',
             urlPaginacao: '',
             urlFiltro: '',
+            nomeMarca: '',
             arquivoImagem: [],
             transacaoStatus: '',
             transacaoDetalhes: {},
@@ -180,6 +180,35 @@ export default {
         }
     },
     methods: {
+        remover() {
+            let confirmacao = confirm('Tem certeza que deseja remover esse registro?')
+
+            if (!confirmacao) {
+                return false;
+            }
+
+            let formData = new FormData();
+            formData.append('_method', 'delete')
+
+            let config = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': this.token
+                }
+            }
+
+            let url = this.urlBase + '/' + this.$store.state.item.id
+
+            axios.post(url, formData, config)
+                .then(response => {
+                    console.log('Registro removido com sucesso', response)
+                    this.carregarLista()
+                })
+                .catch(errors => {
+                    console.log('Houve um erro na tentiva de remoção do registro', errors.response)
+                })
+
+        },
         pesquisar() {
             //console.log(this.busca)
 

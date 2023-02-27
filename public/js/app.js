@@ -7168,9 +7168,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       urlBase: 'http://localhost:8000/api/v1/marca',
-      nomeMarca: '',
       urlPaginacao: '',
       urlFiltro: '',
+      nomeMarca: '',
       arquivoImagem: [],
       transacaoStatus: '',
       transacaoDetalhes: {},
@@ -7184,6 +7184,28 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    remover: function remover() {
+      var _this = this;
+      var confirmacao = confirm('Tem certeza que deseja remover esse registro?');
+      if (!confirmacao) {
+        return false;
+      }
+      var formData = new FormData();
+      formData.append('_method', 'delete');
+      var config = {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': this.token
+        }
+      };
+      var url = this.urlBase + '/' + this.$store.state.item.id;
+      axios.post(url, formData, config).then(function (response) {
+        console.log('Registro removido com sucesso', response);
+        _this.carregarLista();
+      })["catch"](function (errors) {
+        console.log('Houve um erro na tentiva de remoção do registro', errors.response);
+      });
+    },
     pesquisar: function pesquisar() {
       //console.log(this.busca)
 
@@ -7213,7 +7235,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     carregarLista: function carregarLista() {
-      var _this = this;
+      var _this2 = this;
       var config = {
         headers: {
           'Accept': 'application/json',
@@ -7223,7 +7245,7 @@ __webpack_require__.r(__webpack_exports__);
       var url = this.urlBase + '?' + this.urlPaginacao + this.urlFiltro;
       console.log(url);
       axios.get(url, config).then(function (response) {
-        _this.marcas = response.data;
+        _this2.marcas = response.data;
         //console.log(this.marcas)
       })["catch"](function (errors) {
         console.log(errors);
@@ -7233,7 +7255,7 @@ __webpack_require__.r(__webpack_exports__);
       this.arquivoImagem = e.target.files;
     },
     salvar: function salvar() {
-      var _this2 = this;
+      var _this3 = this;
       var formData = new FormData();
       formData.append('nome', this.nomeMarca);
       formData.append('imagem', this.arquivoImagem[0]);
@@ -7245,13 +7267,13 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       axios.post(this.urlBase, formData, config).then(function (response) {
-        _this2.transacaoStatus = 'adicionado';
-        _this2.transacaoDetalhes = {
+        _this3.transacaoStatus = 'adicionado';
+        _this3.transacaoDetalhes = {
           mensagem: 'ID do registro: ' + response.data.id
         };
       })["catch"](function (errors) {
-        _this2.transacaoStatus = 'erro';
-        _this2.transacaoDetalhes = {
+        _this3.transacaoStatus = 'erro';
+        _this3.transacaoDetalhes = {
           mensagem: errors.response.data.message,
           dados: errors.response.data.errors
         };
@@ -31927,6 +31949,20 @@ var render = function () {
                     attrs: { type: "button", "data-dismiss": "modal" },
                   },
                   [_vm._v("Fechar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        return _vm.remover()
+                      },
+                    },
+                  },
+                  [_vm._v("Remover")]
                 ),
               ]
             },
