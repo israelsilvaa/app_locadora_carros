@@ -6959,6 +6959,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['dados', 'titulos', 'atualizar', 'visualizar', 'remover'],
@@ -6996,6 +6997,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -31234,7 +31255,9 @@ var render = function () {
               ])
             }),
             _vm._v(" "),
-            _vm.visivel || _vm.atualizar || _vm.remover ? _c("th") : _vm._e(),
+            _vm.visualizar.visivel || _vm.atualizar || _vm.remover.visivel
+              ? _c("th")
+              : _vm._e(),
           ],
           2
         ),
@@ -31284,7 +31307,7 @@ var render = function () {
                 ])
               }),
               _vm._v(" "),
-              _vm.visualizar.visivel || _vm.atualizar || _vm.remover
+              _vm.visualizar.visivel || _vm.atualizar || _vm.remover.visivel
                 ? _c("td", [
                     _vm.visualizar.visivel
                       ? _c(
@@ -31313,10 +31336,21 @@ var render = function () {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    _vm.remover
+                    _vm.remover.visivel
                       ? _c(
                           "button",
-                          { staticClass: "btn btn-outline-danger btn-sm" },
+                          {
+                            staticClass: "btn btn-outline-danger btn-sm",
+                            attrs: {
+                              "data-bs-toggle": _vm.remover.dataToggle,
+                              "data-bs-target": _vm.remover.dataTarget,
+                            },
+                            on: {
+                              click: function ($event) {
+                                return _vm.setStore(obj)
+                              },
+                            },
+                          },
                           [_vm._v("Remover")]
                         )
                       : _vm._e(),
@@ -31519,7 +31553,11 @@ var render = function () {
                             dataTarget: "#modalMarcaVisualizar",
                           },
                           atualizar: true,
-                          remover: true,
+                          remover: {
+                            visivel: true,
+                            dataToggle: "modal",
+                            dataTarget: "#modalMarcaRemover",
+                          },
                           titulos: {
                             id: { titulo: "ID", tipo: "texto" },
                             nome: { titulo: "Nome", tipo: "texto" },
@@ -31815,6 +31853,62 @@ var render = function () {
                       staticClass: "form-control",
                       attrs: { type: "text", disabled: "" },
                       domProps: { value: _vm.$store.state.item.created_at },
+                    }),
+                  ]
+                ),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "rodape",
+            fn: function () {
+              return [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                  },
+                  [_vm._v("Fechar")]
+                ),
+              ]
+            },
+            proxy: true,
+          },
+        ]),
+      }),
+      _vm._v(" "),
+      _c("modal-component", {
+        attrs: { id: "modalMarcaRemover", titulo: "Visualizar marca" },
+        scopedSlots: _vm._u([
+          {
+            key: "alertas",
+            fn: function () {
+              return undefined
+            },
+            proxy: true,
+          },
+          {
+            key: "conteudo",
+            fn: function () {
+              return [
+                _c("input-container-component", { attrs: { titulo: "ID" } }, [
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: { type: "text", disabled: "" },
+                    domProps: { value: _vm.$store.state.item.id },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "input-container-component",
+                  { attrs: { titulo: "Nome da marca" } },
+                  [
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: { type: "text", disabled: "" },
+                      domProps: { value: _vm.$store.state.item.nome },
                     }),
                   ]
                 ),
