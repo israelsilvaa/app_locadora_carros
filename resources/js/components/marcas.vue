@@ -48,10 +48,10 @@
                         <div class="row">
                             <div class="col">
                                 <paginate-component>
-                                    <li v-for="l,key in marcas.links" :key="key" class="page-item">
+                                    <li v-for="l, key in marcas.links" :key="key" @click="paginacao(l)" :class="l.active ? 'page-item active' : 'page-item'">
                                         <a class="page-link" href="#" v-html="l.label"></a>
                                     </li>
-                                    
+
                                 </paginate-component>
                             </div>
                             <div class="col">
@@ -124,6 +124,12 @@ export default {
         }
     },
     methods: {
+        paginacao(l) {
+            if (l.url) {
+                this.urlBase = l.url //ajustando a url de consulta com o parâmetro de página
+                this.carregarLista() //requisitando novamente os dados para nossa API
+            }
+        },
         carregarLista() {
 
             let config = {

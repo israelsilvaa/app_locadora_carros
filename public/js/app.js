@@ -5845,6 +5845,12 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    paginacao: function paginacao(l) {
+      if (l.url) {
+        this.urlBase = l.url; //ajustando a url de consulta com o parâmetro de página
+        this.carregarLista(); //requisitando novamente os dados para nossa API
+      }
+    },
     carregarLista: function carregarLista() {
       var _this = this;
       var config = {
@@ -30085,7 +30091,17 @@ var render = function () {
                               _vm._l(_vm.marcas.links, function (l, key) {
                                 return _c(
                                   "li",
-                                  { key: key, staticClass: "page-item" },
+                                  {
+                                    key: key,
+                                    class: l.active
+                                      ? "page-item active"
+                                      : "page-item",
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.paginacao(l)
+                                      },
+                                    },
+                                  },
                                   [
                                     _c("a", {
                                       staticClass: "page-link",
