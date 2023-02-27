@@ -26,8 +26,8 @@
                     </template>
 
                     <template v-slot:rodape>
-                        <button type="submit"
-                            class="btn btn-primary btn-sm float-right" @click="pesquisar()">Pesquisar</button>
+                        <button type="submit" class="btn btn-primary btn-sm float-right"
+                            @click="pesquisar()">Pesquisar</button>
                     </template>
                 </card-component>
                 <!-- fim do card de busca -->
@@ -119,6 +119,8 @@ export default {
         return {
             urlBase: 'http://localhost:8000/api/v1/marca',
             nomeMarca: '',
+            urlPaginacao: '',
+            urlFiltro: '',
             arquivoImagem: [],
             transacaoStatus: '',
             transacaoDetalhes: {},
@@ -143,12 +145,19 @@ export default {
                     filtro += chave + ':like:' + this.busca[chave]
                 }
             }
+            if (filtro != '') {
+                this.urlPaginacao = 'page=1'
+                this.urlFiltro = '&filtro=' + filtro
+            } else {
+                this.urlFiltro = ''
+            }
 
-            console.log(filtro)
+            this.carregarLista()
         },
         paginacao(l) {
             if (l.url) {
-                this.urlBase = l.url //ajustando a url de consulta com o parâmetro de página
+                //this.urlBase = l.url //ajustando a url de consulta com o parâmetro de página
+                this.urlPaginacao = l.url.split('?')[1]
                 this.carregarLista() //requisitando novamente os dados para nossa API
             }
         },
@@ -161,9 +170,12 @@ export default {
                 }
             }
 
-            axios.get(this.urlBase, config)
+            let url = this.urlBase + '?' + this.urlPaginacao + this.urlFiltro
+            console.log(url)
+            axios.get(url, config)
                 .then(response => {
                     this.marcas = response.data
+                    //console.log(this.marcas)
                 })
                 .catch(errors => {
                     console.log(errors)

@@ -5838,6 +5838,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       urlBase: 'http://localhost:8000/api/v1/marca',
       nomeMarca: '',
+      urlPaginacao: '',
+      urlFiltro: '',
       arquivoImagem: [],
       transacaoStatus: '',
       transacaoDetalhes: {},
@@ -5864,11 +5866,18 @@ __webpack_require__.r(__webpack_exports__);
           filtro += chave + ':like:' + this.busca[chave];
         }
       }
-      console.log(filtro);
+      if (filtro != '') {
+        this.urlPaginacao = 'page=1';
+        this.urlFiltro = '&filtro=' + filtro;
+      } else {
+        this.urlFiltro = '';
+      }
+      this.carregarLista();
     },
     paginacao: function paginacao(l) {
       if (l.url) {
-        this.urlBase = l.url; //ajustando a url de consulta com o parâmetro de página
+        //this.urlBase = l.url //ajustando a url de consulta com o parâmetro de página
+        this.urlPaginacao = l.url.split('?')[1];
         this.carregarLista(); //requisitando novamente os dados para nossa API
       }
     },
@@ -5880,8 +5889,11 @@ __webpack_require__.r(__webpack_exports__);
           'Authorization': this.token
         }
       };
-      axios.get(this.urlBase, config).then(function (response) {
+      var url = this.urlBase + '?' + this.urlPaginacao + this.urlFiltro;
+      console.log(url);
+      axios.get(url, config).then(function (response) {
         _this.marcas = response.data;
+        //console.log(this.marcas)
       })["catch"](function (errors) {
         console.log(errors);
       });
