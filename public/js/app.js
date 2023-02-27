@@ -29929,9 +29929,7 @@ var render = function () {
               ])
             }),
             _vm._v(" "),
-            _vm.visualizar || _vm.atualizar || _vm.remover
-              ? _c("th")
-              : _vm._e(),
+            _vm.visivel || _vm.atualizar || _vm.remover ? _c("th") : _vm._e(),
           ],
           2
         ),
@@ -29981,16 +29979,16 @@ var render = function () {
                 ])
               }),
               _vm._v(" "),
-              _vm.visualizar || _vm.atualizar || _vm.remover
+              _vm.visualizar.visivel || _vm.atualizar || _vm.remover
                 ? _c("td", [
-                    _vm.visualizar
+                    _vm.visualizar.visivel
                       ? _c(
                           "button",
                           {
                             staticClass: "btn btn-outline-primary btn-sm",
                             attrs: {
-                              "data-bs-toggle": "modal",
-                              "data-bs-target": "#modalMarcaVisualizar",
+                              "data-bs-toggle": _vm.visualizar.dataToggle,
+                              "data-bs-target": _vm.visualizar.dataTarget,
                             },
                           },
                           [_vm._v("Visualizar")]
@@ -30205,7 +30203,11 @@ var render = function () {
                       _c("table-component", {
                         attrs: {
                           dados: _vm.marcas.data,
-                          visualizar: true,
+                          visualizar: {
+                            visivel: true,
+                            dataToggle: "modal",
+                            dataTarget: "#modalMarcaVisualizar",
+                          },
                           atualizar: true,
                           remover: true,
                           titulos: {
