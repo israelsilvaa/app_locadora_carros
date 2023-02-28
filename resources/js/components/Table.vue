@@ -19,7 +19,7 @@
                             <img :src="'/storage/' + valor" alt="" width="40" height="40">
                         </span>
                         <span v-if="titulos[chaveValor].tipo == 'data'">
-                            {{ valor }}
+                            {{ valor | formataDataTempoGlobal }}
                         </span>
                     </td>
                     <td v-if="visualizar.visivel || atualizar.visivel || remover.visivel">

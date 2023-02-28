@@ -7426,6 +7426,17 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('paginate-component', (__w
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].filter('formataDataTempoGlobal', function (d) {
+  if (!d) return '';
+  d = d.split('T');
+  var data = d[0];
+  var tempo = d[1];
+  data = data.split('-');
+  data = data[2] + '/' + data[1] + '/' + data[0];
+  tempo = tempo.split('.');
+  tempo = tempo[0];
+  return data + ' ' + tempo;
+});
 var app = new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
   el: '#app',
   store: store
@@ -31406,7 +31417,7 @@ var render = function () {
                     ? _c("span", [
                         _vm._v(
                           "\n                        " +
-                            _vm._s(valor) +
+                            _vm._s(_vm._f("formataDataTempoGlobal")(valor)) +
                             "\n                    "
                         ),
                       ])
