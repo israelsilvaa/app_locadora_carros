@@ -7450,19 +7450,8 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
   \***********************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-var _require = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"),
-  axios = _require["default"];
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-
-/**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
-
 try {
-  window.Popper = Object(function webpackMissingModule() { var e = new Error("Cannot find module 'popper.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-  window.$ = window.jQuery = __webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module 'jquery'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
 } catch (e) {}
 
@@ -7491,24 +7480,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
-
-/* interceptar os requests da aplicação */
-axios.interceptors.request.use(function (config) {
-  console.log('Interceptando o request antes do envio', config);
-  return config;
-}, function (error) {
-  console.log('Erro na requisição: ', error);
-  return Promise.reject(error);
-});
-
-/* interceptar os responses da aplicação */
-axios.interceptors.response.use(function (response) {
-  console.log('Interceptando a resposta antes da aplicação', response);
-  return response;
-}, function (error) {
-  console.log('Erro na resposta: ', error);
-  return Promise.reject(error);
-});
 
 /***/ }),
 
