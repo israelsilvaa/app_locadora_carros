@@ -7232,7 +7232,9 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       formData.append('_method', 'patch');
       formData.append('nome', this.$store.state.item.nome);
-      formData.append('imagem', this.arquivoImagem[0]);
+      if (this.arquivoImagem[0]) {
+        formData.append('imagem', this.arquivoImagem[0]);
+      }
       var url = this.urlBase + '/' + this.$store.state.item.id;
       var config = {
         headers: {
@@ -7243,6 +7245,8 @@ __webpack_require__.r(__webpack_exports__);
       };
       axios.post(url, formData, config).then(function (response) {
         console.log('Atualizado', response);
+        //limpar o campo de seleção de arquivos
+        atualizarImagem.value = '';
         _this.carregarLista();
       })["catch"](function (errors) {
         console.log('Erro de atualização', errors.response);
@@ -32164,7 +32168,7 @@ var render = function () {
                           staticClass: "form-control-file",
                           attrs: {
                             type: "file",
-                            id: "novoImagem",
+                            id: "atualizarImagem",
                             "aria-describedby": "atualizarNovoImagemHelp",
                             placeholder: "Selecione uma imagem",
                           },

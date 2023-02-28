@@ -176,7 +176,7 @@
                 <div class="form-group">
                     <input-container-component titulo="Imagem" id="atualizarNovoImagem" id-help="atualizarNovoImagemHelp"
                         texto-ajuda="Selecione uma imagem no formato PNG">
-                        <input type="file" class="form-control-file" id="novoImagem"
+                        <input type="file" class="form-control-file" id="atualizarImagem"
                             aria-describedby="atualizarNovoImagemHelp" placeholder="Selecione uma imagem"
                             @change="carregarImagem($event)">
                     </input-container-component>
@@ -225,7 +225,9 @@ export default {
             let formData = new FormData();
             formData.append('_method', 'patch')
             formData.append('nome', this.$store.state.item.nome)
-            formData.append('imagem', this.arquivoImagem[0])
+            if(this.arquivoImagem[0]){
+                formData.append('imagem', this.arquivoImagem[0])
+            }
 
             let url = this.urlBase + '/' + this.$store.state.item.id
 
@@ -240,6 +242,8 @@ export default {
             axios.post(url, formData, config)
                 .then(response => {
                     console.log('Atualizado', response)
+                    //limpar o campo de seleção de arquivos
+                    atualizarImagem.value = ''
                     this.carregarLista()
                 })
                 .catch(errors => {
