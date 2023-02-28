@@ -6982,6 +6982,7 @@ __webpack_require__.r(__webpack_exports__);
     setStore: function setStore(obj) {
       this.$store.state.transacao.status = '';
       this.$store.state.transacao.mensagem = '';
+      this.$store.state.transacao.dados = '';
       this.$store.state.item = obj;
     }
   }
@@ -7000,6 +7001,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -7244,12 +7248,16 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       axios.post(url, formData, config).then(function (response) {
-        console.log('Atualizado', response);
+        _this.$store.state.transacao.status = 'sucesso';
+        _this.$store.state.transacao.mensagem = 'Registro de marca atualizado com sucesso!';
+
         //limpar o campo de seleção de arquivos
         atualizarImagem.value = '';
         _this.carregarLista();
       })["catch"](function (errors) {
-        console.log('Erro de atualização', errors.response);
+        _this.$store.state.transacao.status = 'erro';
+        _this.$store.state.transacao.mensagem = errors.response.data.message;
+        _this.$store.state.transacao.dados = errors.response.data.errors;
       });
     },
     remover: function remover() {
@@ -7385,7 +7393,8 @@ var store = new Vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     item: {},
     transacao: {
       status: '',
-      mensagem: ''
+      mensagem: '',
+      dado: ''
     }
   }
 });
@@ -32090,7 +32099,27 @@ var render = function () {
           {
             key: "alertas",
             fn: function () {
-              return undefined
+              return [
+                _vm.$store.state.transacao.status == "sucesso"
+                  ? _c("alert-component", {
+                      attrs: {
+                        tipo: "success",
+                        titulo: "Transação realizada com sucesso",
+                        detalhes: _vm.$store.state.transacao,
+                      },
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.$store.state.transacao.status == "erro"
+                  ? _c("alert-component", {
+                      attrs: {
+                        tipo: "danger",
+                        titulo: "Erro na transação",
+                        detalhes: _vm.$store.state.transacao,
+                      },
+                    })
+                  : _vm._e(),
+              ]
             },
             proxy: true,
           },

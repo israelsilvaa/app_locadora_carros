@@ -161,7 +161,10 @@
         <modal-component id="modalMarcaAtualizar" titulo="Atualizar marca">
 
             <template v-slot:alertas>
-
+                <alert-component tipo="success" titulo="Transação realizada com sucesso" :detalhes="$store.state.transacao"
+                    v-if="$store.state.transacao.status == 'sucesso'"></alert-component>
+                <alert-component tipo="danger" titulo="Erro na transação" :detalhes="$store.state.transacao"
+                    v-if="$store.state.transacao.status == 'erro'"></alert-component>
             </template>
 
             <template v-slot:conteudo>
@@ -225,7 +228,8 @@ export default {
             let formData = new FormData();
             formData.append('_method', 'patch')
             formData.append('nome', this.$store.state.item.nome)
-            if(this.arquivoImagem[0]){
+
+            if (this.arquivoImagem[0]) {
                 formData.append('imagem', this.arquivoImagem[0])
             }
 
@@ -241,13 +245,17 @@ export default {
 
             axios.post(url, formData, config)
                 .then(response => {
-                    console.log('Atualizado', response)
+                    this.$store.state.transacao.status = 'sucesso'
+                    this.$store.state.transacao.mensagem = 'Registro de marca atualizado com sucesso!'
+
                     //limpar o campo de seleção de arquivos
                     atualizarImagem.value = ''
                     this.carregarLista()
                 })
                 .catch(errors => {
-                    console.log('Erro de atualização', errors.response)
+                    this.$store.state.transacao.status = 'erro'
+                    this.$store.state.transacao.mensagem = errors.response.data.message
+                    this.$store.state.transacao.dados = errors.response.data.errors
                 })
         },
         remover() {
